@@ -74,10 +74,6 @@ void setup() {
     setRTCTime();
   }
 
-  // give 2 minutes for refill
-  // delay(1200);
-  // beep();
-  // myservo.write(positionY); // Close
 }
 
 void loop() {
@@ -87,32 +83,19 @@ void loop() {
     DateTime now = rtc.now();
 
     // // Check if it's 02:00:xx (midnight)
-    // if (now.hour() == 2 && now.minute() == 20) {
-    //   // Days are numbered: Sunday is 0, Monday is 1, ..., Saturday is 6
-    //   if (now.dayOfTheWeek() >= 0 && now.dayOfTheWeek() <= 5) { // Monday to Saturday
-    //     myservo.write(positionX); // Push
-    //     delay(60000); // Wait for 1 minute
-    //     myservo.write(positionY); // Close
-    //   } else { // Sunday
-    //     myservo.write(positionO); // Open
-    //   }
-    // }
-
-      // Check if it's xx:25:xx
-    if (now.minute() == 34) {
+    if (now.hour() == 2 && now.minute() == 00) {
       // Days are numbered: Sunday is 0, Monday is 1, ..., Saturday is 6
       if (now.dayOfTheWeek() >= 0 && now.dayOfTheWeek() <= 5) { // Monday to Saturday
         myservo.write(positionX); // Push
-        delay(60000); // Wait for 1 minute
+        delay(500);
         myservo.write(positionY); // Close
-      } else { // Sunday
+      } 
+      else { // Sunday
         myservo.write(positionO); // Open
       }
+      delay(60000); // Wait for 1 minute
     }
-
-
-    printDateTime();
-    }
+  }
   // IF refill
   else {
     myservo.write(positionO); // Open
@@ -121,15 +104,10 @@ void loop() {
     }
     myservo.write(positionY); // Close
   }
+  printDateTime();
   delay(1000);
 }
 
-void servoTest() {
-  // myservo.write(positionX); // Close
-  // delay(3000); // Wait for 1 second before checking again
-  // myservo.write(positionY); // Open
-  // delay(3000);
-}
 
 void beep() {
     digitalWrite(beepPin, HIGH);
